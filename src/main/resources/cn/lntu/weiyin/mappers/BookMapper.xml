@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lntu.weiyin.mappers.BookMapper">
+
+    <!-- 实体类和数据库字段的映射关系 -->
+    <resultMap type="cn.lntu.weiyin.pojo.Book" id="BookMap">
+        <result column="id" property="id"/>
+        <result column="book_name" property="bookName"/>
+        <result column="book_type" property="bookType"/>
+        <result column="book_price" property="bookPrice"/>
+        <result column="book_img" property="bookImg" />
+    </resultMap>
+    <insert id="insertAllBook">
+        insert into book values(null,#{bookName},#{bookType},#{bookPrice},#{bookImg});
+    </insert>
+    <update id="updateById">
+        update book set book_name = #{bookName},book_type=#{bookType},book_price=#{bookPrice},book_img=#{bookImg} where id = #{id};
+    </update>
+    <delete id="deleteById">
+        delete from book where id = #{id};
+    </delete>
+    <select id="selectAllBook" resultMap="BookMap">
+        select * from book;
+    </select>
+    <select id="selectBookByName" resultMap="BookMap">
+        select * from book where book_name like concat("%",#{bookName},"%")
+    </select>
+</mapper>

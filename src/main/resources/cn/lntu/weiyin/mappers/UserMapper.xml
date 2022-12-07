@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lntu.weiyin.mappers.UserMapper">
+
+    <!-- 实体类和数据库的字段映射关系 -->
+    <resultMap type="cn.lntu.weiyin.pojo.User" id="UserMap">
+        <result column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_phone" property="userPhone"/>
+    </resultMap>
+
+    <insert id="insertAllUser">
+        insert into user values(null,#{userName},MD5(#{userPassword}),#{userPhone})
+    </insert>
+
+    <select id="selectOneByUserPhonePassWord" resultMap="UserMap">
+        select * from user where user_phone = #{userPhone} and user_password = MD5(#{userPassword});
+    </select>
+
+
+</mapper>
